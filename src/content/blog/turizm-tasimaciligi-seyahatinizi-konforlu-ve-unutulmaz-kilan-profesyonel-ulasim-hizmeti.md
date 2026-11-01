@@ -23,7 +23,7 @@ Hizmetimizin temelinde yalnızca araç sağlamak değil, misafirlerin yolculuk b
 
 ---
 
-![Gezi grubunu taşıyan turizm otobüsü](img:7263971)
+![Doğada gezi rotasında mola veren tur minibüsü](img:7263971)
 
 ## Grup Turlarında Profesyonel Taşımacılık
 
@@ -92,7 +92,7 @@ Aygur Tur, İstanbul'da turizm taşımacılığı alanında köklü bir deneyime
 
 ---
 
-![İstanbul'da bir tur rotasından görüntü](img:15878897)
+![Gün batımında İstanbul'da deniz manzarası](img:15878897)
 
 ## Turizm Taşımacılığında Müşteri Memnuniyeti
 

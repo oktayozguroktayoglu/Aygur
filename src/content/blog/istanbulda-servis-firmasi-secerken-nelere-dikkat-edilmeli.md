@@ -3,7 +3,7 @@ title: "İstanbul’da Servis Firması Seçerken Nelere Dikkat Edilmeli?"
 description: "İstanbul’da güvenilir servis firması nasıl seçilir? Araç kalitesi, sürücü belgeleri, GPS takip ve sigorta gibi kriterleri bu rehberle öğrenin. Aygur Tur ile doğru seçimi yapın."
 date: 2026-05-22
 cover: "14887744"
-coverAlt: "İstanbul trafiğinde ilerleyen servis araçları"
+coverAlt: "Bir servis otobüsünün iç mekânı ve koltuklar"
 categories: [ogrenci, personel, transfer]
 ---
 

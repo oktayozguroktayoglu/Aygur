@@ -90,7 +90,7 @@ Operasyonel araç kiralamada ise sözleşme dönemleri makul aralıklarla yenile
 
 Operasyonel araç kiralamada ise filo büyüklüğü iş ihtiyaçlarına göre esnek biçimde ayarlanabilir. Sezonluk büyüme dönemlerinde ek araçlar hızla sisteme dahil edilir; durgunluk dönemlerinde filo sorunsuzca küçültülür.
 
-![Kurumsal filo araçlarının bakım ve kontrolü](img:5982900)
+![Geniş bir otoparkta sıralanmış filo araçları](img:5982900)
 
 ---
 

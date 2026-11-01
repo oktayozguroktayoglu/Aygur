@@ -40,7 +40,7 @@ Aygur Tur'un havalimanı transfer hizmeti kapsamında:
 
 **Karşılama Hizmeti:** Yabancı misafirler ya da VIP konuklar için talebe göre özel karşılama panosu ve yönlendirme hizmeti de sunulmaktadır.
 
-![Havalimanında misafir karşılayan transfer aracı](img:8425050)
+![Siyah transfer aracına binen iş insanları](img:8425050)
 
 ---
 
@@ -134,7 +134,7 @@ VIP transfer, standart transferin bir üst basamağıdır. Bu yolculuk; dinlenme
 
 Aygur Tur, VIP transferlerde müşterinin kimliğini ve seyahat bilgilerini kesinlikle gizli tutmaktadır. Araç içindeki görüşmeler ve kişisel bilgiler üçüncü taraflarla hiçbir şekilde paylaşılmamaktadır.
 
-![Konforlu bir VIP transfer aracının iç mekânı](img:7594124)
+![Otel girişinde misafirini bekleyen VIP transfer aracı](img:7594124)
 
 ## VIP Transfer: Kimlere Hitap Eder?
 
