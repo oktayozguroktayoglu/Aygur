@@ -1,5 +1,6 @@
 ---
 import { existsSync } from 'node:fs';
+import sharp from 'sharp';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Stats from '../components/Stats.astro';
@@ -7,7 +8,13 @@ import InfoCard from '../components/InfoCard.astro';
 import Icon from '../components/Icon.astro';
 import { references, sectors } from '../data/site.js';
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-const refs = references.map((r) => ({ ...r, logo: existsSync(`public/ref/${r.slug}.png`) ? `${base}ref/${r.slug}.png` : null }));
+// Logo, kaynak boyutundan fazla büyütülmez (en az 48, en çok 96 px)
+const refs = await Promise.all(references.map(async (r) => {
+  const p = `public/ref/${r.slug}.png`;
+  if (!existsSync(p)) return { ...r, logo: null, size: 96 };
+  const w = (await sharp(p).metadata()).width || 96;
+  return { ...r, logo: `${base}ref/${r.slug}.png`, size: Math.max(48, Math.min(96, w * 1.5)) };
+}));
 const initials = (n) => n.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR');
 const count = (s) => references.filter((r) => r.sector === s).length;
 ---
@@ -34,7 +41,7 @@ const count = (s) => references.filter((r) => r.sector === s).length;
         {refs.map((r) => (
           <li class="ref-card" data-sector={r.sector}>
             <a class="ref-logo" href={r.url} target="_blank" rel="noopener" aria-label={`${r.name} web sitesi (yeni sekmede açılır)`}>
-              {r.logo ? <img src={r.logo} alt={`${r.name} logosu`} width="96" height="96" loading="lazy" /> : <span class="ref-initials" aria-hidden="true">{initials(r.name)}</span>}
+              {r.logo ? <img src={r.logo} alt={`${r.name} logosu`} width={r.size} height={r.size} style={`width:${r.size}px;height:${r.size}px`} loading="lazy" /> : <span class="ref-initials" aria-hidden="true">{initials(r.name)}</span>}
             </a>
             <div class="ref-body">
               <span class="ref-sector">{r.sector}</span>

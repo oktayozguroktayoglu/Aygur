@@ -39,16 +39,13 @@ await mkdir('public/ref', { recursive: true });
     const out = `public/ref/${r.slug}.png`;
     if ((await exists(out)) && (await width(await readFile(out))) >= 96) continue;
     const home = `https://www.${r.domain}/`;
-    const cands = [`${home}apple-touch-icon.png`, `${home}apple-touch-icon-precomposed.png`];
-    try {
-      const html = await (await get(home)).text();
-      for (const m of html.matchAll(/<link[^>]+>/gi)) {
-        const tag = m[0];
+    const cands = [`${home}apple-touch-icon.png`, `${home}apple-touch-icon-precomposed.png`, `https://${r.domain}/apple-touch-icon.png`,
+      `https://icons.duckduckgo.com/ip3/${r.domain}.ico`, `https://icon.horse/icon/${r.domain}`];
+    for (const h of [home, `https://${r.domain}/`]) {
+      try { const html = await (await get(h)).text(); for (const m of html.matchAll(/<link[^>]+>/gi)) { const tag = m[0];
         if (!/rel=["'][^"']*(apple-touch-icon|icon)[^"']*["']/i.test(tag)) continue;
-        const h = tag.match(/href=["']([^"']+)["']/i);
-        if (h) cands.push(new URL(h[1].replace(/&amp;/g, '&'), home).href);
-      }
-    } catch (e) { console.warn('ana sayfa okunamadı', r.domain, e.message); }
+        const hr = tag.match(/href=["']([^"']+)["']/i); if (hr) cands.push(new URL(hr[1].replace(/&amp;/g, '&'), h).href); } } catch {}
+    }
     cands.push(`https://www.google.com/s2/favicons?domain=${r.domain}&sz=256`);
     let best = null, bestW = 0;
     for (const u of new Set(cands)) {
@@ -58,7 +55,7 @@ await mkdir('public/ref', { recursive: true });
         if (w > bestW) { best = buf; bestW = w; }
       } catch {}
     }
-    if (best) { await writeFile(out, await sharp(best, { density: 300 }).resize(256, 256, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer()); console.log('logo', r.slug, bestW + 'px'); }
+    if (best) { await writeFile(out, await sharp(best, { density: 300 }).resize(256, 256, { fit: 'inside', withoutEnlargement: true }).png().toBuffer()); console.log('logo', r.slug, bestW + 'px'); }
     else console.warn('ATLANDI logo', r.slug);
   }
 }
