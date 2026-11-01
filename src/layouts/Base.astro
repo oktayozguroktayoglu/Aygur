@@ -21,8 +21,8 @@ const aboutPages = [
   { href: 'vizyon-ve-misyonumuz/', name: 'Vizyon ve Misyon' },
   { href: 'degerlerimiz/', name: 'Değerlerimiz' },
 ];
-const inAbout = aboutPages.some((a) => is(a.href));
-const inServices = services.some((s) => is(s.slug + '/'));
+const inAbout = is('hakkimizda/') || aboutPages.some((a) => is(a.href));
+const inServices = is('hizmetlerimiz/') || services.some((s) => is(s.slug + '/'));
 const org = {
   '@context': 'https://schema.org', '@type': 'LocalBusiness', '@id': new URL(base, Astro.site).href + '#firma',
   name: 'Aygur Turizm', alternateName: 'Aygur Tur', url: new URL(base, Astro.site).href, telephone: '+905332847518', email: EMAIL,
@@ -64,10 +64,10 @@ const org = {
       <nav class="main-nav" aria-label="Ana menü">
         <ul>
           <li><a href={u()} aria-current={is('') ? 'page' : undefined}>Anasayfa</a></li>
-          <li class="has-sub"><a href={u('biz-kimiz/')} aria-current={inAbout ? 'page' : undefined}>Hakkımızda</a>
+          <li class="has-sub"><a href={u('hakkimizda/')} aria-current={inAbout ? 'page' : undefined}>Hakkımızda</a>
             <ul class="sub">{aboutPages.map((a) => <li><a href={u(a.href)}>{a.name}</a></li>)}</ul>
           </li>
-          <li class="has-sub"><a href={u(services[0].slug + '/')} aria-current={inServices ? 'page' : undefined}>Hizmetlerimiz</a>
+          <li class="has-sub"><a href={u('hizmetlerimiz/')} aria-current={inServices ? 'page' : undefined}>Hizmetlerimiz</a>
             <ul class="sub">{services.map((s) => <li><a href={u(s.slug + '/')}>{s.title}</a></li>)}</ul>
           </li>
           <li><a href={u('bilgi-bankasi/')} aria-current={path.startsWith(u('bilgi-bankasi')) ? 'page' : undefined}>Blog</a></li>
@@ -79,9 +79,9 @@ const org = {
         <summary aria-label="Menüyü aç"><span class="burger" aria-hidden="true"></span></summary>
         <div class="mm-panel">
           <a href={u()}>Anasayfa</a>
-          <p>Hakkımızda</p>
+          <a href={u('hakkimizda/')}>Hakkımızda</a>
           {aboutPages.map((a) => <a class="sub" href={u(a.href)}>{a.name}</a>)}
-          <p>Hizmetlerimiz</p>
+          <a href={u('hizmetlerimiz/')}>Hizmetlerimiz</a>
           {services.map((s) => <a class="sub" href={u(s.slug + '/')}>{s.title}</a>)}
           <a href={u('bilgi-bankasi/')}>Blog</a>
           <a href={u('iletisim/')}>İletişim</a>
@@ -94,7 +94,7 @@ const org = {
   <footer class="site-footer">
     <div class="wrap">
       <div class="f-about"><Logo variant="footer" /><p>{ABOUT_SHORT}</p></div>
-      <div><h2>MENU</h2><ul><li><a href={u('biz-kimiz/')}>Hakkımızda</a></li><li><a href={u(services[0].slug + '/')}>Hizmetlerimiz</a></li><li><a href={u('iletisim/')}>Referanslarımız</a></li><li><a href={u('iletisim/')}>İletişim</a></li></ul></div>
+      <div><h2>MENU</h2><ul><li><a href={u('hakkimizda/')}>Hakkımızda</a></li><li><a href={u('hizmetlerimiz/')}>Hizmetlerimiz</a></li><li><a href={u('iletisim/')}>Referanslarımız</a></li><li><a href={u('iletisim/')}>İletişim</a></li></ul></div>
       <div><h2>Hizmetlerimiz</h2><ul>{services.map((s) => <li><a href={u(s.slug + '/')}>{s.title}</a></li>)}</ul></div>
       <div class="f-contact">
         <p><Icon name="pin" size={18} /> <span>Adres: {ADDRESS}</span></p>

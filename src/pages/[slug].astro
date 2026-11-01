@@ -33,7 +33,7 @@ const fmt = (d) => d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long'
 {kind === 'service' && (
   <Base title={`${service.title} | Aygur Turizm`} description={service.description} ogImage={img(service.cardImg)}
     jsonLd={{ '@context': 'https://schema.org', '@type': 'Service', name: service.title, serviceType: service.title, description: service.description, provider: { '@id': site + '#firma' }, areaServed: 'Türkiye' }}>
-    <PageHero title={service.heading} crumbs={[{ name: 'Hizmetlerimiz' }, { name: service.title }]} />
+    <PageHero title={service.heading} crumbs={[{ name: 'Hizmetlerimiz', href: `${base}hizmetlerimiz/` }, { name: service.title }]} />
     <article class="service">
       {service.blocks.map((b) => (
         b.type === 'stats' ? <Stats /> :

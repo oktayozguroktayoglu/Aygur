@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Stats from '../components/Stats.astro';
+import Values from '../components/Values.astro';
+import InfoCard from '../components/InfoCard.astro';
+import Icon from '../components/Icon.astro';
+import { img, whyUs } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const subs = [
+  { href: 'biz-kimiz/', title: 'Biz Kimiz', text: '30 yıl önce şahıs firması olarak temelleri atılan Aygur Tur’un hikâyesi.', id: '6147373' },
+  { href: 'vizyon-ve-misyonumuz/', title: 'Vizyon ve Misyon', text: 'Servis taşımacılık sektöründe tercih edilen en iyi firmaların başında olmak.', id: '4175028' },
+  { href: 'degerlerimiz/', title: 'Değerlerimiz', text: 'Güven, kalite ve sürdürülebilir hizmet anlayışımızı şekillendiren ilkeler.', id: '6592700' },
+];
+---
+<Base title="Hakkımızda | Aygur Turizm" description="Aygur Turizm hakkında: 30 yıllık servis taşımacılığı tecrübesi, vizyonumuz, misyonumuz ve değerlerimiz." ogImage="img/6147373.jpg">
+  <PageHero title="HAKKIMIZDA" crumbs={[{ name: 'Hakkımızda' }]} />
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="kicker">Biz Kimiz?</p>
+        <h2>Aygur Turizm</h2>
+        <p>30 yıl önce şahıs firması olarak temelleri atılan Aygur Tur, servis taşımacılık sektöründe güvenilir hizmet anlayışı ile markalaşarak, kaliteli hizmet ve müşteri memnuniyetini her zaman ön planda tutarak faaliyetlerini sürdürmektedir</p>
+        <p>30 yıllık tecrübemiz ile kalitemizi sürekli artırarak, değerli müşterilerimiz için hizmet etmeye devam edeceğiz.</p>
+      </div>
+      <img class="rounded" src={base + img('6147373')} alt="Birlik ve iş birliğini simgeleyen yapboz parçaları" width="1024" height="683" />
+    </div>
+  </section>
+  <Stats />
+  <section class="section">
+    <div class="wrap">
+      <div class="vm-grid">
+        <div class="vm"><h2>VİZYONUMUZ</h2><p class="statement">Servis taşımacılık sektöründe firmaya özel hizmet kalitemizle tercih edilen en iyi firmaların başında olmak.</p></div>
+        <div class="vm"><h2>MİSYONUMUZ</h2><p class="statement">Ulusal alanda müşteri odaklı çözümlerimiz, üstün hizmet kalitemizle sunduğumuz taşımacılık hizmetlerimizle yeni gelişmeleri takip ederek sürdürülebilir ve dengeli bir büyümeyle bütün paydaşlarımıza değer yaratmak.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap about-grid">
+      <div><p class="kicker">Neden Biz?</p><h2>Güvenilir Yolculuklar</h2><p>{whyUs.text}</p></div>
+      <ul class="ticks">{whyUs.items.map((i) => <li><Icon name="check" size={18} /> {i}</li>)}</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap"><h2 class="center">DEĞERLERİMİZ</h2><Values /></div>
+  </section>
+  <section class="section alt">
+    <div class="wrap">
+      <h2 class="center">Kurumsal</h2>
+      <div class="cards">
+        {subs.map((s) => (
+          <article class="card">
+            <a href={base + s.href} class="card-img"><img src={base + img(s.id)} alt={s.title} loading="lazy" width="600" height="400" /></a>
+            <div class="card-body"><h3><a href={base + s.href}>{s.title}</a></h3><p>{s.text}</p><a class="card-more" href={base + s.href}>DAHA FAZLASINI KEŞFET</a></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <InfoCard />
+</Base>

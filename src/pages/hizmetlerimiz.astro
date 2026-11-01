@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Stats from '../components/Stats.astro';
+import InfoCard from '../components/InfoCard.astro';
+import Icon from '../components/Icon.astro';
+import { services, img, whyUs } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Base title="Hizmetlerimiz | Aygur Turizm" description="Personel taşımacılığı, öğrenci servis taşımacılığı, turizm taşımacılığı, operasyonel araç kiralama ve transfer hizmetleri. Aygur Turizm ulaşım çözümleri." ogImage="img/17455633.jpg">
+  <PageHero title="HİZMETLERİMİZ" crumbs={[{ name: 'Hizmetlerimiz' }]} />
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker center">GÜVENLİ VE KONFORLU</p>
+      <h2 class="center">Ulaşım Çözümlerimiz</h2>
+      <div class="svc-rows">
+        {services.map((s, i) => (
+          <article class:list={['svc-row', { rev: i % 2 }]}>
+            <a href={`${base}${s.slug}/`}><img class="rounded" src={base + img(s.cardImg)} alt={s.title} loading={i ? 'lazy' : 'eager'} width="1024" height="683" /></a>
+            <div>
+              <h3><a href={`${base}${s.slug}/`}>{s.title}</a></h3>
+              <p>{s.card}</p>
+              <a class="btn" href={`${base}${s.slug}/`}>DAHA FAZLASINI KEŞFET <Icon name="arrow" size={18} /></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Stats />
+  <section class="section">
+    <div class="wrap about-grid">
+      <div><p class="kicker">Neden Biz?</p><h2>Güvenilir Yolculuklar</h2><p>{whyUs.text}</p></div>
+      <ul class="ticks">{whyUs.items.map((i) => <li><Icon name="check" size={18} /> {i}</li>)}</ul>
+    </div>
+  </section>
+  <InfoCard />
+</Base>

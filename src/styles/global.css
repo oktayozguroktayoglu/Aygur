@@ -231,3 +231,15 @@ ul{padding-left:20px}
   .info-card{padding:30px 22px}
   .copy{flex-direction:column}
 }
+
+/* Hakkımızda / Hizmetlerimiz özet sayfaları */
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.vm{background:var(--bg-alt);border-radius:var(--r);padding:34px;border-top:4px solid var(--brand)}
+.svc-rows{display:grid;gap:60px;margin-top:40px}
+.svc-row{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.svc-row.rev>a{order:2}
+.svc-row h3{font-size:clamp(22px,2.4vw,30px)}
+.svc-row h3 a{color:var(--brand-dark);text-decoration:none}
+.svc-row p{color:var(--muted);margin:10px 0 22px;font-size:17px}
+.svc-row img{aspect-ratio:3/2}
+@media (max-width:900px){.vm-grid,.svc-row{grid-template-columns:1fr;gap:24px}.svc-row.rev>a{order:0}}

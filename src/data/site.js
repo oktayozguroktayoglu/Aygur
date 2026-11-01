@@ -166,7 +166,7 @@ export const serviceBySlug = Object.fromEntries(services.map((s) => [s.slug, s])
 
 // Eski WordPress adreslerinden yönlendirmeler (aynı içeriğin ikinci kopyaları)
 export const redirects = {
-  'kurumsal': 'biz-kimiz/',
+  'kurumsal': 'hakkimizda/',
   'bize_ulasin': 'iletisim/',
   'turizm-tasimaciligi-2': 'transfer-hizmetleri/',
 };
