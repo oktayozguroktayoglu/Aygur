@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://oktayozguroktayoglu.github.io/aygur/sitemap-index.xml
+Sitemap: https://oktayozguroktayoglu.github.io/Aygur/sitemap-index.xml
