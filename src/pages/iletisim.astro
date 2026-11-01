@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import { PHONE, PHONE_TEL, EMAIL, ADDRESS, MAP_EMBED } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const posts = (await getCollection('blog', (p) => !p.data.draft)).sort((a, b) => b.data.date - a.data.date).slice(0, 3);
+---
+<Base title="İletişim | Aygur Turizm" description={`Aygur Turizm iletişim: ${ADDRESS}. Telefon ${PHONE}, e-posta ${EMAIL}. Teklif formu.`}>
+  <PageHero title="İLETİŞİM" crumbs={[{ name: 'İletişim' }]} />
+  <section class="section">
+    <div class="wrap form-grid">
+      <div>
+        <p class="kicker">Operasyon Merkezimiz</p>
+        <h2>İletişim Detaylarımız</h2>
+        <div class="contact-box">
+          <h3>İstanbul Ofisimiz</h3>
+          <p><Icon name="pin" /> <span>{ADDRESS}</span></p>
+          <p><Icon name="phone" /> <a href={PHONE_TEL}>{PHONE}</a></p>
+          <p><Icon name="mail" /> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+        </div>
+      </div>
+      <QuoteForm id="iletisim-form" />
+    </div>
+  </section>
+  <section class="map"><iframe src={MAP_EMBED} title={ADDRESS} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></section>
+  <section class="section">
+    <div class="wrap">
+      <h2>Yazılarımız</h2>
+      <div class="post-grid">
+        {posts.map((p) => (
+          <article class="post-card"><h3><a href={`${base}${p.id}/`}>{p.data.title}</a></h3><p>{p.data.description}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

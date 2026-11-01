@@ -1,0 +1,13 @@
+---
+import Icon from './Icon.astro';
+import { infoCard } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<section class="wrap">
+  <div class="info-card">
+    <span class="info-ico"><Icon name="double" size={34} /></span>
+    <h3>{infoCard.title}</h3>
+    {infoCard.text.map((t) => <p>{t}</p>)}
+    <a class="btn" href={`${base}iletisim/`}>{infoCard.button}</a>
+  </div>
+</section>

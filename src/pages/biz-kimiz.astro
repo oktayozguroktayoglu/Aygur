@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Stats from '../components/Stats.astro';
+import Values from '../components/Values.astro';
+import InfoCard from '../components/InfoCard.astro';
+import { img } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Base title="Biz Kimiz? | Aygur Turizm" description="30 yıl önce şahıs firması olarak temelleri atılan Aygur Tur, servis taşımacılık sektöründe güvenilir hizmet anlayışı ile markalaşmıştır." ogImage="img/6147373.jpg">
+  <PageHero title="BİZ KİMİZ" crumbs={[{ name: 'Hakkımızda' }]} />
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="kicker">Biz Kimiz?</p>
+        <h2>Aygur Turizm</h2>
+        <p>30 yıl önce şahıs firması olarak temelleri atılan Aygur Tur, servis taşımacılık sektöründe güvenilir hizmet anlayışı ile markalaşarak, kaliteli hizmet ve müşteri memnuniyetini her zaman ön planda tutarak faaliyetlerini sürdürmektedir</p>
+        <p>30 yıllık tecrübemiz ile kalitemizi sürekli artırarak, değerli müşterilerimiz için hizmet etmeye devam edeceğiz.</p>
+      </div>
+      <img class="rounded" src={base + img('6147373')} alt="Birlik ve iş birliğini simgeleyen yapboz parçaları" width="1024" height="683" />
+    </div>
+  </section>
+  <Stats />
+  <section class="section"><div class="wrap"><Values /></div></section>
+  <InfoCard />
+</Base>

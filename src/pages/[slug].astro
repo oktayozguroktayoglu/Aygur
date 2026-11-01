@@ -1,0 +1,70 @@
+---
+// Hizmet sayfaları, blog yazıları ve eski adres yönlendirmeleri (hepsi kök dizinde, eski sitedeki gibi)
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Stats from '../components/Stats.astro';
+import ImagePair from '../components/ImagePair.astro';
+import InfoCard from '../components/InfoCard.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection, render } from 'astro:content';
+import { services, redirects, img } from '../data/site.js';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => !p.data.draft);
+  return [
+    ...services.map((s) => ({ params: { slug: s.slug }, props: { kind: 'service', service: s } })),
+    ...posts.map((p) => ({ params: { slug: p.id }, props: { kind: 'post', post: p } })),
+    ...Object.entries(redirects).map(([from, to]) => ({ params: { slug: from }, props: { kind: 'redirect', to } })),
+  ];
+}
+const { kind, service, post, to } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const site = new URL(base, Astro.site).href;
+let Content, others = [];
+if (kind === 'post') {
+  ({ Content } = await render(post));
+  others = (await getCollection('blog', (p) => !p.data.draft && p.id !== post.id)).sort((a, b) => b.data.date - a.data.date).slice(0, 4);
+}
+const fmt = (d) => d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Istanbul' });
+---
+{kind === 'redirect' && (
+  <html lang="tr"><head><meta charset="utf-8" /><title>Yönlendiriliyor…</title><meta name="robots" content="noindex" /><link rel="canonical" href={site + to} /><meta http-equiv="refresh" content={`0; url=${base}${to}`} /></head><body><a href={`${base}${to}`}>Sayfa taşındı, devam etmek için tıklayın.</a></body></html>
+)}
+{kind === 'service' && (
+  <Base title={`${service.title} | Aygur Turizm`} description={service.description} ogImage={img(service.cardImg)}
+    jsonLd={{ '@context': 'https://schema.org', '@type': 'Service', name: service.title, serviceType: service.title, description: service.description, provider: { '@id': site + '#firma' }, areaServed: 'Türkiye' }}>
+    <PageHero title={service.heading} crumbs={[{ name: 'Hizmetlerimiz' }, { name: service.title }]} />
+    <article class="service">
+      {service.blocks.map((b) => (
+        b.type === 'stats' ? <Stats /> :
+        <div class="wrap narrow">
+          {b.type === 'h' && (b.level === 4 ? <h4 class="statement">{b.text}</h4> : <h2>{b.text}</h2>)}
+          {b.type === 'lead' && <p class="lead">{b.text}</p>}
+          {b.type === 'list' && <ul class="ticks big">{b.items.map((i) => <li><Icon name="check" size={20} /> <span>{i}</span></li>)}</ul>}
+          {b.type === 'images' && <ImagePair ids={b.ids} alt={service.title} />}
+        </div>
+      ))}
+    </article>
+    <InfoCard />
+    <section class="section"><div class="wrap"><h2>Diğer Hizmetlerimiz</h2>
+      <ul class="pill-list">{services.filter((s) => s.slug !== service.slug).map((s) => <li><a href={`${base}${s.slug}/`}>{s.title}</a></li>)}</ul>
+    </div></section>
+  </Base>
+)}
+{kind === 'post' && (
+  <Base title={`${post.data.title} | Aygur Turizm`} description={post.data.description}
+    jsonLd={{ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.date.toISOString().slice(0, 10), inLanguage: 'tr-TR', mainEntityOfPage: `${site}${post.id}/`, author: { '@type': 'Organization', name: 'Aygur Turizm' }, publisher: { '@id': site + '#firma' } }}>
+    <PageHero title="BİLGİ BANKASI" crumbs={[{ name: 'Blog', href: `${base}bilgi-bankasi/` }, { name: post.data.title }]} />
+    <div class="wrap post-layout">
+      <article class="prose">
+        <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>
+        <h1>{post.data.title}</h1>
+        <Content />
+      </article>
+      <aside class="post-side">
+        <div class="side-box"><h2>Teklif Alın</h2><p>Firmanıza özel ulaşım çözümleri için bizimle iletişime geçin.</p><a class="btn" href={`${base}iletisim/`}>Hemen Teklif Alın</a></div>
+        <div class="side-box"><h2>Diğer Yazılar</h2><ul>{others.map((o) => <li><a href={`${base}${o.id}/`}>{o.data.title}</a></li>)}</ul></div>
+      </aside>
+    </div>
+  </Base>
+)}

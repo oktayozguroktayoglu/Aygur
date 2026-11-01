@@ -1,0 +1,55 @@
+---
+// Teklif formu (eski sitedeki WPForms alanlarıyla aynı).
+// WEB3FORMS_KEY girilirse e-postaya gider; boşsa WhatsApp'a hazır mesaj olarak açılır.
+import { WA_NUMBER, EMAIL } from '../data/site.js';
+const WEB3FORMS_KEY = '';
+const { id = 'form' } = Astro.props;
+---
+<form class="quote-form" id={id} data-wa={WA_NUMBER} data-key={WEB3FORMS_KEY} novalidate>
+  <label>Firma Adı<input name="firma" autocomplete="organization" /></label>
+  <fieldset class="row2"><legend>Yetkili Kişi Adı Soyadı</legend>
+    <label><input name="ad" autocomplete="given-name" /><small>Ad</small></label>
+    <label><input name="soyad" autocomplete="family-name" /><small>Soyad</small></label>
+  </fieldset>
+  <label><span>Telefon No <span class="req">*</span></span><input name="telefon" type="tel" autocomplete="tel" required /><small>Lütfen size ulaşabileceğimiz telefon numaranızı yazınız</small></label>
+  <label>E-posta<input name="eposta" type="email" autocomplete="email" /></label>
+  <fieldset class="checks"><legend>İletişim Seçenekleri (Seçebileceğiniz)</legend>
+    <label><input type="checkbox" name="iletisim" value="Telefon" /> Telefon</label>
+    <label><input type="checkbox" name="iletisim" value="E-posta" /> E-posta</label>
+    <label><input type="checkbox" name="iletisim" value="WhatsApp" /> WhatsApp</label>
+  </fieldset>
+  <label>Talep / Bilgi Notu<textarea name="not" rows="4"></textarea></label>
+  <p class="form-msg" role="alert"></p>
+  <button class="btn" type="submit">TEKLİF AL</button>
+  <p class="kvkk">Bu form aracılığıyla tarafımıza iletmiş olduğunuz ad, soyad, telefon, e-posta ve mesaj gibi kişisel verileriniz, 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) kapsamında yalnızca talebinizin değerlendirilmesi, sizinle iletişime geçilmesi ve hizmetlerimizin sunulması amacıyla işlenecektir. Kişisel verileriniz, yasal yükümlülükler dışında üçüncü kişilerle paylaşılmamaktadır. Formu göndererek, kişisel verilerinizin yukarıda belirtilen amaçlar doğrultusunda işlenmesini kabul etmiş sayılırsınız. KVKK kapsamındaki haklarınızı kullanmak için bizimle iletişime geçebilirsiniz.</p>
+</form>
+<script is:inline define:vars={{ id, EMAIL }}>
+  (function () {
+    var f = document.getElementById(id);
+    if (!f) return;
+    f.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var msg = f.querySelector('.form-msg'), d = new FormData(f), v = function (k) { return (d.get(k) || '').toString().trim(); };
+      if (!v('telefon')) { msg.textContent = 'Lütfen telefon numaranızı yazın.'; f.telefon.focus(); return; }
+      var tercih = d.getAll('iletisim').join(', ');
+      var s = ['TEKLİF TALEBİ (aygur.com.tr)'];
+      if (v('firma')) s.push('Firma: ' + v('firma'));
+      if (v('ad') || v('soyad')) s.push('Yetkili: ' + (v('ad') + ' ' + v('soyad')).trim());
+      s.push('Telefon: ' + v('telefon'));
+      if (v('eposta')) s.push('E-posta: ' + v('eposta'));
+      if (tercih) s.push('İletişim tercihi: ' + tercih);
+      if (v('not')) s.push('Not: ' + v('not'));
+      if (f.dataset.key) {
+        msg.textContent = 'Gönderiliyor…';
+        try {
+          var r = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ access_key: f.dataset.key, subject: 'Web sitesi teklif talebi', from_name: 'aygur.com.tr', message: s.join('\n'), email: v('eposta') || undefined }) });
+          var j = await r.json();
+          if (j.success) { f.reset(); msg.textContent = 'Teşekkürler, talebiniz alındı. En kısa sürede size dönüş yapacağız.'; return; }
+        } catch (_) {}
+        msg.textContent = 'Gönderilemedi. Lütfen ' + EMAIL + ' adresine yazın ya da bizi arayın.';
+        return;
+      }
+      window.location.href = 'https://wa.me/' + f.dataset.wa + '?text=' + encodeURIComponent(s.join('\n'));
+    });
+  })();
+</script>

@@ -1,0 +1,13 @@
+---
+import Icon from './Icon.astro';
+import { values } from '../data/site.js';
+---
+<div class="values">
+  {values.map((v) => (
+    <div class="value">
+      <span class="value-ico"><Icon name="check" size={26} /></span>
+      <h3>{v.title}</h3>
+      <p>{v.text}</p>
+    </div>
+  ))}
+</div>

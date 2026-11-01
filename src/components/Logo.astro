@@ -1,0 +1,10 @@
+---
+// Logo dosyası ilk yayında eski siteden indirilir (public/logo.png). Yoksa yazı gösterilir.
+const { variant = 'header' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const file = variant === 'footer' ? 'logo-footer.png' : 'logo.png';
+---
+<span class:list={['logo', variant]}>
+  <img src={base + file} alt="Aygur Turizm" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+  <span class="logo-text" style="display:none">AYGUR<small>TURİZM</small></span>
+</span>

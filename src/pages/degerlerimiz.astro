@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Stats from '../components/Stats.astro';
+import Values from '../components/Values.astro';
+import InfoCard from '../components/InfoCard.astro';
+import { img } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Base title="Değerlerimiz | Aygur Turizm" description="Faaliyetlerimizin temelinde güven, kalite ve sürdürülebilir hizmet anlayışı yer almaktadır. Aygur Turizm değerleri." ogImage="img/6592700.jpg">
+  <PageHero title="DEĞERLERİMİZ" crumbs={[{ name: 'Hakkımızda', href: `${base}biz-kimiz/` }, { name: 'Değerlerimiz' }]} />
+  <section class="section">
+    <div class="wrap split">
+      <h4 class="statement">Faaliyetlerimizin temelinde güven, kalite ve sürdürülebilir hizmet anlayışı yer almaktadır. Müşteri memnuniyetini ön planda tutarak benimsediğimiz değerler, hizmet kalitemizi ve çalışma prensiplerimizi şekillendirmektedir.</h4>
+      <img class="rounded" src={base + img('6592700')} alt="" width="1024" height="682" />
+    </div>
+  </section>
+  <section class="section"><div class="wrap"><Values /></div></section>
+  <Stats />
+  <section class="section"><div class="wrap"><img class="rounded wide" src={base + img('8353820')} alt="" width="1024" height="684" loading="lazy" /></div></section>
+  <InfoCard />
+</Base>

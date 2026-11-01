@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Values from '../components/Values.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import { services, whyUs, img } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Base title="Aygur Turizm | Personel ve Öğrenci Servis Taşımacılığı, Transfer, Araç Kiralama" description="30 yıllık tecrübeyle personel taşımacılığı, öğrenci servis taşımacılığı, turizm taşımacılığı, transfer hizmetleri ve operasyonel araç kiralama. Aygur Turizm, İstanbul Çekmeköy." ogImage="img/17455633.jpg">
+  <section class="hero" style={`--hero:url(${base}${img('17455633')})`}>
+    <div class="wrap">
+      <h2 class="hero-title">AYGUR TURİZM GÜVENLİ VE KONFORLU YOLCULUKLAR SUNAR</h2>
+      <div class="hero-btns">
+        <a class="btn" href={`${base}iletisim/`}>BİZE ULAŞIN</a>
+        <a class="btn btn-ghost" href="#form"><Icon name="mail" size={18} /> HEMEN TEKLİF AL</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><p class="kicker">GÜVENLİ VE KONFORLU</p><h2>Ulaşım Çözümlerimiz</h2></div>
+        <a class="more" href={`${base}${services[0].slug}/`}>Tümünü Gör <Icon name="arrow" size={18} /></a>
+      </div>
+      <div class="cards">
+        {services.map((s) => (
+          <article class="card">
+            <a href={`${base}${s.slug}/`} class="card-img"><img src={base + img(s.cardImg)} alt={s.title} loading="lazy" width="600" height="400" /></a>
+            <div class="card-body">
+              <h3><a href={`${base}${s.slug}/`}>{s.title}</a></h3>
+              <p>{s.card}</p>
+              <a class="card-more" href={`${base}${s.slug}/`}>DAHA FAZLASINI KEŞFET</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap about-grid">
+      <div>
+        <p class="kicker">Biz Kimiz</p>
+        <h2>Güvenilir Yolculuklar</h2>
+        <p>30 yıl önce şahıs firması olarak temelleri atılan Aygur Tur, servis taşımacılık sektöründe güvenilir hizmet anlayışı ile markalaşarak, kaliteli hizmet ve müşteri memnuniyetini her zaman ön planda tutarak faaliyetlerini sürdürmektedir. 30 yıllık tecrübemiz ile kalitemizi sürekli artırarak, değerli müşterilerimiz için hizmet etmeye devam edeceğiz</p>
+      </div>
+      <div>
+        <h3>Neden Biz?</h3>
+        <p>{whyUs.text}</p>
+        <ul class="ticks">{whyUs.items.map((i) => <li><Icon name="check" size={18} /> {i}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="center">DEĞERLERİMİZ</h2>
+      <Values />
+    </div>
+  </section>
+
+  <section class="section alt" id="teklif">
+    <div class="wrap form-grid">
+      <div>
+        <p class="kicker">Teklif Alın</p>
+        <h4 class="form-intro">İhtiyacınıza en uygun hizmet çözümleri için bizimle hemen iletişime geçin. Talebinizi iletin, uzman ekibimiz size en kısa sürede özel fiyat teklifi sunsun. Güvenilir, hızlı ve profesyonel hizmet anlayışımızla yanınızdayız.</h4>
+      </div>
+      <QuoteForm id="form" />
+    </div>
+  </section>
+</Base>

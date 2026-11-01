@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Base title="Sayfa bulunamadı | Aygur Turizm" description="Aradığınız sayfa bulunamadı." noindex>
+  <PageHero title="SAYFA BULUNAMADI" crumbs={[{ name: '404' }]} />
+  <section class="section"><div class="wrap narrow"><p class="lead">Aradığınız sayfa taşınmış ya da kaldırılmış olabilir.</p><a class="btn" href={base}>Anasayfaya dön</a></div></section>
+</Base>
