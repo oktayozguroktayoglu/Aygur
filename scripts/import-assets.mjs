@@ -29,10 +29,38 @@ for (const id of new Set([...allImageIds, ...blogIds])) {
   await save(`https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1600`, `public/img/${id}.jpg`);
 }
 
-// Referans firma logoları (firmanın kendi site simgesi)
+// Referans firma logoları: firmanın kendi sitesindeki en büyük simge (apple-touch-icon / icon), yoksa Google simge servisi.
+// 96 pikselden küçük kayıtlı logo varsa daha büyüğü aranır.
 await mkdir('public/ref', { recursive: true });
-for (const r of references) {
-  await save(`https://www.google.com/s2/favicons?domain=${r.domain}&sz=256`, `public/ref/${r.slug}.png`);
+{
+  const sharp = (await import('sharp')).default;
+  const width = async (buf) => { try { const m = await sharp(buf).metadata(); return m.format === 'svg' ? 1000 : (m.width || 0); } catch { return 0; } };
+  for (const r of references) {
+    const out = `public/ref/${r.slug}.png`;
+    if ((await exists(out)) && (await width(await readFile(out))) >= 96) continue;
+    const home = `https://www.${r.domain}/`;
+    const cands = [`${home}apple-touch-icon.png`, `${home}apple-touch-icon-precomposed.png`];
+    try {
+      const html = await (await get(home)).text();
+      for (const m of html.matchAll(/<link[^>]+>/gi)) {
+        const tag = m[0];
+        if (!/rel=["'][^"']*(apple-touch-icon|icon)[^"']*["']/i.test(tag)) continue;
+        const h = tag.match(/href=["']([^"']+)["']/i);
+        if (h) cands.push(new URL(h[1].replace(/&amp;/g, '&'), home).href);
+      }
+    } catch (e) { console.warn('ana sayfa okunamadı', r.domain, e.message); }
+    cands.push(`https://www.google.com/s2/favicons?domain=${r.domain}&sz=256`);
+    let best = null, bestW = 0;
+    for (const u of new Set(cands)) {
+      try {
+        const buf = Buffer.from(await (await get(u)).arrayBuffer());
+        const w = await width(buf);
+        if (w > bestW) { best = buf; bestW = w; }
+      } catch {}
+    }
+    if (best) { await writeFile(out, await sharp(best, { density: 300 }).resize(256, 256, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer()); console.log('logo', r.slug, bestW + 'px'); }
+    else console.warn('ATLANDI logo', r.slug);
+  }
 }
 
 // Logo ve favicon (eski siteden)
