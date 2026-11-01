@@ -15,6 +15,7 @@ export const ABOUT_SHORT = '30 yıl önce şahıs firması olarak temelleri atı
 
 // Görseller: public/img/<pexels-id>.jpg (ilk yayında GitHub Actions tarafından indirilir)
 export const img = (id) => `img/${id}.jpg`;
+export const srcset = (base, id) => `${base}img/${id}-800.webp 800w, ${base}img/${id}-1600.webp 1600w`;
 
 export const stats = [
   { value: '1 Milyon+', label: 'Dan fazla yolcu', icon: 'passenger' },

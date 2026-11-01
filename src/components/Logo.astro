@@ -5,6 +5,6 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const file = variant === 'footer' ? 'logo-footer.png' : 'logo.png';
 ---
 <span class:list={['logo', variant]}>
-  <img src={base + file} alt="Aygur Turizm" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+  <img src={base + file} alt="Aygur Turizm" width={variant === 'footer' ? 167 : 174} height={variant === 'footer' ? 60 : 58} onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
   <span class="logo-text" style="display:none">AYGUR<small>TURİZM</small></span>
 </span>

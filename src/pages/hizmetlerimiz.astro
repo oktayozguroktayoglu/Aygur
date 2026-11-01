@@ -4,7 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import Stats from '../components/Stats.astro';
 import InfoCard from '../components/InfoCard.astro';
 import Icon from '../components/Icon.astro';
-import { services, img, whyUs } from '../data/site.js';
+import { services, img, srcset, whyUs } from '../data/site.js';
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 <Base title="Hizmetlerimiz | Aygur Turizm" description="Personel taşımacılığı, öğrenci servis taşımacılığı, turizm taşımacılığı, operasyonel araç kiralama ve transfer hizmetleri. Aygur Turizm ulaşım çözümleri." ogImage="img/17455633.jpg">
@@ -16,7 +16,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
       <div class="svc-rows">
         {services.map((s, i) => (
           <article class:list={['svc-row', { rev: i % 2 }]}>
-            <a href={`${base}${s.slug}/`}><img class="rounded" src={base + img(s.cardImg)} alt={s.title} loading={i ? 'lazy' : 'eager'} width="1024" height="683" /></a>
+            <a href={`${base}${s.slug}/`}><img class="rounded" src={base + img(s.cardImg)} srcset={srcset(base, s.cardImg)} sizes="(max-width: 900px) 100vw, 600px" alt={s.title} loading={i ? 'lazy' : 'eager'} width="1024" height="683" /></a>
             <div>
               <h3><a href={`${base}${s.slug}/`}>{s.title}</a></h3>
               <p>{s.card}</p>

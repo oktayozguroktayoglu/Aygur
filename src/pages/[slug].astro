@@ -54,7 +54,7 @@ const fmt = (d) => d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long'
 {kind === 'post' && (
   <Base title={`${post.data.title} | Aygur Turizm`} description={post.data.description}
     jsonLd={{ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.date.toISOString().slice(0, 10), inLanguage: 'tr-TR', mainEntityOfPage: `${site}${post.id}/`, author: { '@type': 'Organization', name: 'Aygur Turizm' }, publisher: { '@id': site + '#firma' } }}>
-    <PageHero title="BİLGİ BANKASI" crumbs={[{ name: 'Blog', href: `${base}bilgi-bankasi/` }, { name: post.data.title }]} />
+    <PageHero tag="p" title="BİLGİ BANKASI" crumbs={[{ name: 'Blog', href: `${base}bilgi-bankasi/` }, { name: post.data.title }]} />
     <div class="wrap post-layout">
       <article class="prose">
         <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>

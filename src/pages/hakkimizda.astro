@@ -5,7 +5,7 @@ import Stats from '../components/Stats.astro';
 import Values from '../components/Values.astro';
 import InfoCard from '../components/InfoCard.astro';
 import Icon from '../components/Icon.astro';
-import { img, whyUs } from '../data/site.js';
+import { img, srcset, whyUs } from '../data/site.js';
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const subs = [
   { href: 'biz-kimiz/', title: 'Biz Kimiz', text: '30 yıl önce şahıs firması olarak temelleri atılan Aygur Tur’un hikâyesi.', id: '6147373' },
@@ -23,7 +23,7 @@ const subs = [
         <p>30 yıl önce şahıs firması olarak temelleri atılan Aygur Tur, servis taşımacılık sektöründe güvenilir hizmet anlayışı ile markalaşarak, kaliteli hizmet ve müşteri memnuniyetini her zaman ön planda tutarak faaliyetlerini sürdürmektedir</p>
         <p>30 yıllık tecrübemiz ile kalitemizi sürekli artırarak, değerli müşterilerimiz için hizmet etmeye devam edeceğiz.</p>
       </div>
-      <img class="rounded" src={base + img('6147373')} alt="Birlik ve iş birliğini simgeleyen yapboz parçaları" width="1024" height="683" />
+      <img class="rounded" src={base + img('6147373')} srcset={srcset(base, '6147373')} sizes="(max-width: 900px) 100vw, 600px" alt="Birlik ve iş birliğini simgeleyen yapboz parçaları" width="1024" height="683" />
     </div>
   </section>
   <Stats />
@@ -50,7 +50,7 @@ const subs = [
       <div class="cards">
         {subs.map((s) => (
           <article class="card">
-            <a href={base + s.href} class="card-img"><img src={base + img(s.id)} alt={s.title} loading="lazy" width="600" height="400" /></a>
+            <a href={base + s.href} class="card-img"><img src={base + img(s.id)} srcset={srcset(base, s.id)} sizes="(max-width: 900px) 100vw, 600px" alt={s.title} loading="lazy" width="600" height="400" /></a>
             <div class="card-body"><h3><a href={base + s.href}>{s.title}</a></h3><p>{s.text}</p><a class="card-more" href={base + s.href}>DAHA FAZLASINI KEŞFET</a></div>
           </article>
         ))}

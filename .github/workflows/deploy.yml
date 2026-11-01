@@ -22,6 +22,8 @@ jobs:
       - run: npm ci
       - name: Eksik görselleri ve eski site stillerini indir
         run: node scripts/import-assets.mjs
+      - name: Görselleri WebP olarak hazırla
+        run: node scripts/optimize-images.mjs
       - name: İndirilenleri repoya kaydet
         run: |
           git config user.name "github-actions[bot]"

@@ -3,6 +3,7 @@
   /* Eski sitenin Astra/Elementor global renkleri (aygur.com.tr) */
   --brand:#018af2;        /* ast-global-color-0: ana mavi */
   --brand-strong:#055394; /* koyu mavi (buton/hover) */
+  --brand-text:#0369c0;   /* beyaz zeminde okunaklı mavi yazı */
   --brand-mid:#1a3a5c;    /* ast-global-color-3 */
   --brand-dark:#0d1b2a;   /* ast-global-color-2: lacivert, üst bar ve alt bilgi */
   --accent:#d6073b;       /* ast-global-color-1: kırmızı vurgu */
@@ -30,7 +31,7 @@ ul{padding-left:20px}
 .narrow{max-width:960px}
 .skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:8px;z-index:99;background:#fff;padding:8px}
 .center{text-align:center}
-.kicker{font-family:var(--head);font-weight:600;color:var(--brand);letter-spacing:.06em;text-transform:uppercase;font-size:14px;margin-bottom:6px}
+.kicker{font-family:var(--head);font-weight:600;color:var(--brand-text);letter-spacing:.06em;text-transform:uppercase;font-size:14px;margin-bottom:6px}
 .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.03em;padding:14px 26px;border-radius:var(--r);text-decoration:none;border:2px solid var(--accent);cursor:pointer;transition:background .15s}
 .btn:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
 .btn-ghost{background:transparent;border-color:#fff}
@@ -75,13 +76,16 @@ ul{padding-left:20px}
 .mm-panel .btn{margin-top:16px;justify-content:center;color:#fff}
 
 /* Ana sayfa */
-.hero{position:relative;min-height:560px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(13,27,42,.9),rgba(13,27,42,.45)),var(--hero) center/cover;color:#fff}
+.hero{position:relative;min-height:560px;display:flex;align-items:center;color:#fff;overflow:hidden;background:var(--brand-dark)}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,27,42,.9),rgba(13,27,42,.45));z-index:1}
+.hero .wrap{position:relative;z-index:2}
 .hero-title{color:#fff;font-size:clamp(30px,4.4vw,54px);max-width:16em;letter-spacing:.01em}
 .hero-btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
 .section{padding:80px 0}
 .section.alt{background:var(--bg-alt)}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}
-.more{display:inline-flex;gap:6px;align-items:center;font-family:var(--head);font-weight:600;text-decoration:none}
+.more{color:var(--brand-text);display:inline-flex;gap:6px;align-items:center;font-family:var(--head);font-weight:600;text-decoration:none}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 10px 30px rgba(10,42,76,.08);display:flex;flex-direction:column}
 .card-img img{aspect-ratio:3/2;object-fit:cover;width:100%;transition:transform .3s}
@@ -124,7 +128,7 @@ ul{padding-left:20px}
 
 /* İç sayfa başlığı */
 .page-hero{position:relative;background:linear-gradient(135deg,var(--brand-mid),var(--brand-strong));color:#fff;padding:90px 0 80px;text-align:center;overflow:hidden}
-.page-hero h1{color:#fff;font-size:clamp(28px,4vw,44px);letter-spacing:.02em}
+.page-hero .ph-title{font-family:var(--head);font-weight:700;line-height:1.25;color:#fff;font-size:clamp(28px,4vw,44px);letter-spacing:.02em}
 .page-hero .shape{position:absolute;left:0;width:100%;height:40px;fill:#fff}
 .page-hero .shape.top{top:-1px;transform:rotate(180deg);fill:var(--brand-dark);opacity:.5}
 .page-hero .shape.bottom{bottom:-1px}

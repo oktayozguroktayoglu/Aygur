@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Stats from '../components/Stats.astro';
 import InfoCard from '../components/InfoCard.astro';
-import { img } from '../data/site.js';
+import { img, srcset } from '../data/site.js';
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 <Base title="Vizyon ve Misyonumuz | Aygur Turizm" description="Aygur Turizm vizyonu ve misyonu: servis taşımacılık sektöründe firmaya özel hizmet kalitesiyle tercih edilen en iyi firmaların başında olmak." ogImage="img/4175028.jpg">
@@ -11,7 +11,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   <section class="section">
     <div class="wrap"><h2 class="center">VİZYONUMUZ</h2></div>
     <div class="wrap split">
-      <img class="rounded" src={base + img('13831531')} alt="Modern bir çalışma ortamı" width="940" height="627" />
+      <img class="rounded" src={base + img('13831531')} srcset={srcset(base, '13831531')} sizes="(max-width: 900px) 100vw, 600px" alt="Modern bir çalışma ortamı" width="940" height="627" />
       <h4 class="statement">Servis taşımacılık sektöründe firmaya özel hizmet kalitemizle tercih edilen en iyi firmaların başında olmak.</h4>
     </div>
   </section>
@@ -19,7 +19,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   <section class="section">
     <div class="wrap"><h2 class="center">MİSYONUMUZ</h2></div>
     <div class="wrap split">
-      <img class="rounded" src={base + img('4175028')} alt="Ofiste anlaşma el sıkışması" width="1024" height="573" />
+      <img class="rounded" src={base + img('4175028')} srcset={srcset(base, '4175028')} sizes="(max-width: 900px) 100vw, 600px" alt="Ofiste anlaşma el sıkışması" width="1024" height="573" />
       <h4 class="statement">Ulusal alanda müşteri odaklı çözümlerimiz, üstün hizmet kalitemizle sunduğumuz taşımacılık hizmetlerimizle yeni gelişmeleri takip ederek sürdürülebilir ve dengeli bir büyümeyle bütün paydaşlarımıza değer yaratmak.</h4>
     </div>
   </section>

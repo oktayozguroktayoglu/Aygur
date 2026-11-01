@@ -11,7 +11,13 @@ import ContactFab from '../components/ContactFab.astro';
 import { SITE_NAME, PHONE, PHONE_TEL, EMAIL, ADDRESS, TAGLINE, ABOUT_SHORT, services } from '../data/site.js';
 
 interface Props { title: string; description: string; jsonLd?: object; noindex?: boolean; ogImage?: string }
-const { title, description, jsonLd, noindex = false, ogImage } = Astro.props;
+const { title: rawTitle, description: rawDesc, jsonLd, noindex = false, ogImage } = Astro.props;
+// Google'da kesilmesin: başlık ~60, açıklama ~155 karakter
+const SUF = ' | Aygur Turizm';
+let title = rawTitle;
+if (title.length > 62 && title.endsWith(SUF)) title = title.slice(0, -SUF.length);
+if (title.length > 65) title = title.slice(0, 62).replace(/[\s:,;–-]+\S*$/, '') + '…';
+const description = rawDesc.length > 158 ? rawDesc.slice(0, 155).replace(/\s+\S*$/, '') + '…' : rawDesc;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const u = (p = '') => base + p;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
