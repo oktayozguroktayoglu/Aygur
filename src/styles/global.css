@@ -1,15 +1,18 @@
 /* Aygur Turizm — renkler tek yerden. (Eski sitenin Astra/Elementor renkleri buraya işlenir.) */
 :root{
-  --brand:#0f3d6e;        /* ana renk */
-  --brand-dark:#0a2a4c;   /* koyu ton: üst bar, alt bilgi */
-  --accent:#f39c12;       /* vurgu: butonlar, ikonlar */
-  --accent-dark:#d68910;
-  --text:#2b2f36;
-  --muted:#5f6b7a;
+  /* Eski sitenin Astra/Elementor global renkleri (aygur.com.tr) */
+  --brand:#018af2;        /* ast-global-color-0: ana mavi */
+  --brand-strong:#055394; /* koyu mavi (buton/hover) */
+  --brand-mid:#1a3a5c;    /* ast-global-color-3 */
+  --brand-dark:#0d1b2a;   /* ast-global-color-2: lacivert, üst bar ve alt bilgi */
+  --accent:#d6073b;       /* ast-global-color-1: kırmızı vurgu */
+  --accent-dark:#b0052f;
+  --text:#1a1a1a;         /* ast-global-color-4 */
+  --muted:#555555;        /* ast-global-color-6 */
   --line:#e3e8ef;
-  --bg-alt:#f4f7fb;
+  --bg-alt:#f8f9fa;       /* ast-global-color-5 */
   --white:#fff;
-  --head:"Poppins",system-ui,sans-serif;
+  --head:"Montserrat",system-ui,sans-serif;
   --body:"Open Sans",system-ui,sans-serif;
   --wrap:1200px;
   --r:10px;
@@ -27,7 +30,7 @@ ul{padding-left:20px}
 .narrow{max-width:960px}
 .skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:8px;z-index:99;background:#fff;padding:8px}
 .center{text-align:center}
-.kicker{font-family:var(--head);font-weight:600;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;font-size:14px;margin-bottom:6px}
+.kicker{font-family:var(--head);font-weight:600;color:var(--brand);letter-spacing:.06em;text-transform:uppercase;font-size:14px;margin-bottom:6px}
 .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.03em;padding:14px 26px;border-radius:var(--r);text-decoration:none;border:2px solid var(--accent);cursor:pointer;transition:background .15s}
 .btn:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
 .btn-ghost{background:transparent;border-color:#fff}
@@ -43,14 +46,14 @@ ul{padding-left:20px}
 .site-header .wrap{display:flex;align-items:center;gap:28px;min-height:84px}
 .brand{text-decoration:none}
 .logo img{height:58px;width:auto}
-.logo.footer img{height:64px}
+.logo.footer img{height:64px;background:#fff;padding:8px 12px;border-radius:8px}
 .logo-text{font-family:var(--head);font-weight:700;font-size:26px;color:var(--brand-dark);letter-spacing:.04em}
 .logo-text small{display:block;font-size:12px;letter-spacing:.35em;color:var(--accent)}
 .main-nav{margin-left:auto}
 .main-nav>ul{list-style:none;padding:0;display:flex;gap:4px}
 .main-nav li{position:relative}
 .main-nav a{display:block;padding:12px 14px;font-family:var(--head);font-weight:500;font-size:15px;color:var(--brand-dark);text-decoration:none;border-radius:8px}
-.main-nav a:hover,.main-nav a[aria-current="page"]{color:var(--accent)}
+.main-nav a:hover,.main-nav a[aria-current="page"]{color:var(--brand)}
 .has-sub>a::after{content:"";display:inline-block;width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:0 0 3px 8px}
 .sub{list-style:none;padding:8px;position:absolute;top:100%;left:0;min-width:250px;background:#fff;border-top:3px solid var(--accent);box-shadow:0 18px 40px rgba(10,42,76,.15);border-radius:0 0 var(--r) var(--r);opacity:0;visibility:hidden;transform:translateY(8px);transition:.15s}
 .has-sub:hover .sub,.has-sub:focus-within .sub{opacity:1;visibility:visible;transform:none}
@@ -72,7 +75,7 @@ ul{padding-left:20px}
 .mm-panel .btn{margin-top:16px;justify-content:center;color:#fff}
 
 /* Ana sayfa */
-.hero{position:relative;min-height:560px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(10,42,76,.88),rgba(10,42,76,.45)),var(--hero) center/cover;color:#fff}
+.hero{position:relative;min-height:560px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(13,27,42,.9),rgba(13,27,42,.45)),var(--hero) center/cover;color:#fff}
 .hero-title{color:#fff;font-size:clamp(30px,4.4vw,54px);max-width:16em;letter-spacing:.01em}
 .hero-btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
 .section{padding:80px 0}
@@ -91,7 +94,7 @@ ul{padding-left:20px}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}
 .ticks{list-style:none;padding:0;display:grid;gap:10px;margin-top:16px}
 .ticks li{display:flex;gap:10px;align-items:flex-start;font-weight:600;color:var(--brand-dark)}
-.ticks .ico{color:var(--accent);flex-shrink:0;margin-top:3px}
+.ticks .ico{color:var(--brand);flex-shrink:0;margin-top:3px}
 .ticks.big li{font-weight:600;font-size:17px;padding:14px 18px;background:var(--bg-alt);border-radius:var(--r)}
 .values{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
 .value{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;transition:transform .2s,box-shadow .2s}
@@ -120,7 +123,7 @@ ul{padding-left:20px}
 .kvkk{font-size:12.5px;color:var(--muted);line-height:1.55}
 
 /* İç sayfa başlığı */
-.page-hero{position:relative;background:var(--brand);color:#fff;padding:90px 0 80px;text-align:center;overflow:hidden}
+.page-hero{position:relative;background:linear-gradient(135deg,var(--brand-mid),var(--brand-strong));color:#fff;padding:90px 0 80px;text-align:center;overflow:hidden}
 .page-hero h1{color:#fff;font-size:clamp(28px,4vw,44px);letter-spacing:.02em}
 .page-hero .shape{position:absolute;left:0;width:100%;height:40px;fill:#fff}
 .page-hero .shape.top{top:-1px;transform:rotate(180deg);fill:var(--brand-dark);opacity:.5}
@@ -136,7 +139,7 @@ ul{padding-left:20px}
 .stats{background:var(--brand-dark);color:#fff;padding:46px 0;margin:30px 0}
 .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
 .stat{display:flex;align-items:center;gap:14px}
-.stat-ico{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.stat-ico{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--brand);flex-shrink:0}
 .stat strong{display:block;font-family:var(--head);font-size:28px;line-height:1.1}
 .stat span{color:#cfd8e3;font-size:14px}
 
