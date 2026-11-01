@@ -243,3 +243,31 @@ ul{padding-left:20px}
 .svc-row p{color:var(--muted);margin:10px 0 22px;font-size:17px}
 .svc-row img{aspect-ratio:3/2}
 @media (max-width:900px){.vm-grid,.svc-row{grid-template-columns:1fr;gap:24px}.svc-row.rev>a{order:0}}
+
+/* Sabit iletişim butonu */
+.fab{position:fixed;right:22px;bottom:22px;z-index:90;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.fab-btn{width:62px;height:62px;border-radius:50%;border:0;cursor:pointer;background:var(--accent);color:#fff;display:grid;place-items:center;box-shadow:0 10px 26px rgba(214,7,59,.4);transition:transform .2s,background .2s}
+.fab-btn:hover{background:var(--accent-dark);transform:scale(1.05)}
+.fab-btn:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.fab-btn .i-close,.fab.open .fab-btn .i-open{display:none}
+.fab.open .fab-btn .i-close{display:block}
+.fab:not(.open) .fab-btn::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--accent);animation:fabPulse 2.4s ease-out infinite}
+.fab-btn{position:relative}
+@keyframes fabPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.55);opacity:0}}
+.fab-menu{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.fab-menu:not([hidden]) li{animation:fabIn .18s ease-out both}
+.fab-menu li:nth-child(2){animation-delay:.03s}.fab-menu li:nth-child(3){animation-delay:.06s}.fab-menu li:nth-child(4){animation-delay:.09s}
+@keyframes fabIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fab-item{display:flex;align-items:center;gap:12px;text-decoration:none}
+.fab-txt{background:#fff;color:var(--brand-dark);padding:7px 14px;border-radius:10px;box-shadow:0 6px 18px rgba(13,27,42,.15);text-align:right;line-height:1.25}
+.fab-txt strong{display:block;font-family:var(--head);font-size:14px}
+.fab-txt small{font-size:12px;color:var(--muted)}
+.fab-ico{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 6px 18px rgba(13,27,42,.2);transition:transform .15s}
+.fab-item:hover .fab-ico{transform:scale(1.08)}
+.fab-item.wa .fab-ico{background:#25d366}
+.fab-item.mail .fab-ico{background:var(--brand)}
+.fab-item.tel .fab-ico{background:var(--brand-mid)}
+.fab-item.map .fab-ico{background:#ea4335}
+@media (max-width:640px){.fab{right:14px;bottom:14px}.fab-btn{width:56px;height:56px}}
+@media (prefers-reduced-motion:reduce){.fab-btn::after,.fab-menu li{animation:none!important}}
+@media print{.fab{display:none}}
