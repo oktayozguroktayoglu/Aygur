@@ -2,6 +2,8 @@
 title: "Kurumsal Taşımacılıkta Maliyet Optimizasyonu: Daha Az Harcayıp Daha İyi Hizmet Almak Mümkün mü?"
 description: "Kurumsal taşımacılıkta maliyet optimizasyonu nasıl yapılır? Gizli maliyetler, toplu taşımacılık avantajları ve doğru firma seçimiyle tasarruf yöntemlerini keşfedin. Aygur Tur ile verimli kurumsal ulaşım."
 date: 2026-05-23
+cover: "3840448"
+coverAlt: "Maliyet hesabı yapılan bir masa, hesap makinesi ve grafikler"
 categories: [ogrenci, operasyonel, personel]
 ---
 
@@ -28,6 +30,8 @@ Pek çok şirket, çalışanlarına yakıt ya da toplu taşıma desteği sağlam
 **İş kazası riski:** Trafikte geçirilen zaman arttıkça iş kazası riski de yükselir. Bir çalışanın trafik kazasına karışması; sağlık maliyetleri, iş gücü kaybı ve hukuki sorumluluklar açısından ciddi bir yük oluşturabilir.
 
 ---
+
+![Kurumsal personel taşıyan servis otobüsü](img:7263971)
 
 ## Toplu Taşımacılık: En Güçlü Maliyet Optimizasyon Aracı
 

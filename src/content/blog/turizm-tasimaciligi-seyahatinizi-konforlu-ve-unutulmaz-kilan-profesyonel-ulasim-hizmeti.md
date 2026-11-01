@@ -2,6 +2,8 @@
 title: "Turizm Taşımacılığı: Seyahatinizi Konforlu ve Unutulmaz Kılan Profesyonel Ulaşım Hizmeti"
 description: "Grup turlarından bireysel VIP gezilere, havalimanı karşılamadan şehirlerarası turlara: Aygur Tur ile İstanbul ve Türkiye'de profesyonel turizm taşımacılığı."
 date: 2026-05-17
+cover: "27426973"
+coverAlt: "İstanbul Boğazı'nda ilerleyen bir vapur"
 categories: [turizm]
 ---
 
@@ -20,6 +22,8 @@ Aygur Tur olarak turizm taşımacılığı alanında bireysel gezilerden büyük
 Hizmetimizin temelinde yalnızca araç sağlamak değil, misafirlerin yolculuk boyunca yaşadığı deneyimi en üst seviyeye taşımak yatmaktadır. Araç kalitesi, sürücü tutumu, dakiklik, güzergah bilgisi ve müşteri iletişimi gibi her detay, Aygur Tur'un turizm taşımacılığı anlayışının ayrılmaz birer parçasıdır.
 
 ---
+
+![Gezi grubunu taşıyan turizm otobüsü](img:7263971)
 
 ## Grup Turlarında Profesyonel Taşımacılık
 
@@ -87,6 +91,8 @@ yer almaktadır. Her araç, her seyahat öncesinde teknik kontrolden geçirilmek
 Aygur Tur, İstanbul'da turizm taşımacılığı alanında köklü bir deneyime sahiptir. Sultanahmet, Kapalıçarşı, Dolmabahçe Sarayı, Topkapı Sarayı, Boğaz turu güzergahları, Prens Adaları ve daha pek çok turistik nokta arasında gerçekleştirilen transferler; şehrin karmaşık trafik yapısını iyi bilen uzman sürücülerimiz tarafından yönetilmektedir.
 
 ---
+
+![İstanbul'da bir tur rotasından görüntü](img:15878897)
 
 ## Turizm Taşımacılığında Müşteri Memnuniyeti
 

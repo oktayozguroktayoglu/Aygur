@@ -1,6 +1,6 @@
 // İlk yayında çalışır: eksik görselleri (Pexels), logoyu ve eski sitenin tema stillerini indirir.
 // Dosyalar repoya kaydedilir; sonraki derlemeler internete ihtiyaç duymaz.
-import { mkdir, writeFile, access } from 'node:fs/promises';
+import { mkdir, writeFile, access, readdir, readFile } from 'node:fs/promises';
 import { allImageIds } from '../src/data/site.js';
 
 const OLD = 'https://www.aygur.com.tr';
@@ -19,7 +19,13 @@ async function save(url, path) {
 await mkdir('public/img', { recursive: true });
 await mkdir('import', { recursive: true });
 
-for (const id of allImageIds) {
+// Blog yazılarındaki kapak (cover) ve yazı içi (img:ID) görseller
+const blogIds = [];
+for (const f of (await readdir('src/content/blog')).filter((f) => f.endsWith('.md'))) {
+  const t = await readFile('src/content/blog/' + f, 'utf8');
+  for (const m of t.matchAll(/(?:cover:\s*['"]?|img:)(\d+)/g)) blogIds.push(m[1]);
+}
+for (const id of new Set([...allImageIds, ...blogIds])) {
   await save(`https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1600`, `public/img/${id}.jpg`);
 }
 

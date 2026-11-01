@@ -7,7 +7,7 @@ import ImagePair from '../components/ImagePair.astro';
 import InfoCard from '../components/InfoCard.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection, render } from 'astro:content';
-import { services, redirects, img } from '../data/site.js';
+import { services, redirects, img, srcset } from '../data/site.js';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', (p) => !p.data.draft);
@@ -52,13 +52,14 @@ const fmt = (d) => d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long'
   </Base>
 )}
 {kind === 'post' && (
-  <Base title={`${post.data.title} | Aygur Turizm`} description={post.data.description}
-    jsonLd={{ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.date.toISOString().slice(0, 10), inLanguage: 'tr-TR', mainEntityOfPage: `${site}${post.id}/`, author: { '@type': 'Organization', name: 'Aygur Turizm' }, publisher: { '@id': site + '#firma' } }}>
+  <Base title={`${post.data.title} | Aygur Turizm`} description={post.data.description} ogImage={post.data.cover ? img(post.data.cover) : undefined}
+    jsonLd={{ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.date.toISOString().slice(0, 10), ...(post.data.updated ? { dateModified: post.data.updated.toISOString().slice(0, 10) } : {}), ...(post.data.cover ? { image: new URL(base + img(post.data.cover), Astro.site).href } : {}), inLanguage: 'tr-TR', mainEntityOfPage: `${site}${post.id}/`, author: { '@type': 'Organization', name: 'Aygur Turizm' }, publisher: { '@id': site + '#firma' } }}>
     <PageHero tag="p" title="BİLGİ BANKASI" crumbs={[{ name: 'Blog', href: `${base}bilgi-bankasi/` }, { name: post.data.title }]} />
     <div class="wrap post-layout">
       <article class="prose">
         <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>
         <h1>{post.data.title}</h1>
+        {post.data.cover && <img class="post-cover" src={`${base}${img(post.data.cover)}`} srcset={srcset(base, post.data.cover)} sizes="(max-width: 900px) 100vw, 760px" alt={post.data.coverAlt} width="1600" height="1067" fetchpriority="high" />}
         <Content />
       </article>
       <aside class="post-side">

@@ -4,7 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
-import { PHONE, PHONE_TEL, EMAIL, ADDRESS, MAP_EMBED } from '../data/site.js';
+import { PHONE, PHONE_TEL, EMAIL, ADDRESS, MAP_EMBED, img, srcset } from '../data/site.js';
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const posts = (await getCollection('blog', (p) => !p.data.draft)).sort((a, b) => b.data.date - a.data.date).slice(0, 3);
 ---
@@ -31,7 +31,7 @@ const posts = (await getCollection('blog', (p) => !p.data.draft)).sort((a, b) =>
       <h2>Yazılarımız</h2>
       <div class="post-grid">
         {posts.map((p) => (
-          <article class="post-card"><h3><a href={`${base}${p.id}/`}>{p.data.title}</a></h3><p>{p.data.description}</p></article>
+          <article class="post-card">{p.data.cover && <img class="post-card-img" src={`${base}${img(p.data.cover)}`} srcset={srcset(base, p.data.cover)} sizes="(max-width: 700px) 100vw, 360px" alt="" width="1600" height="1067" loading="lazy" />}<h3><a href={`${base}${p.id}/`}>{p.data.title}</a></h3><p>{p.data.description}</p></article>
         ))}
       </div>
     </div>

@@ -170,6 +170,10 @@ export const redirects = {
   'kurumsal': 'hakkimizda/',
   'bize_ulasin': 'iletisim/',
   'turizm-tasimaciligi-2': 'transfer-hizmetleri/',
+  'personel-tasimaciligi-guvenli-konforlu-ve-dakik-ulasim-cozumleri': 'personel-tasimaciligi-neden-onemlidir/',
+  'ogrenci-servislerinde-guvenlik-standartlari-ailelerin-bilmesi-gereken-her-sey': 'ogrenci-servis-tasimaciligi-cocugunuzun-guvenli-yolculugu-bizim-sorumlulugumuz/',
+  'vip-transfer-hizmeti-nedir-kimler-icin-uygundur': 'transfer-hizmetleri-7-24-guvenli-konforlu-ve-ozel-ulasim-deneyimi/',
+  'operasyonel-arac-kiralama-avantajlari-neden-satin-almak-yerine-kiralamak-daha-akillica': 'operasyonel-arac-kiralama-isletmenizin-stratejik-ulasim-cozumu/',
 };
 
 // Görsellerin Pexels kimlikleri (indirme betiği için)
