@@ -28,11 +28,64 @@ const items = [
 <script is:inline>
   (function () {
     var f = document.getElementById('fab'); if (!f) return;
-    var b = f.querySelector('.fab-btn'), m = document.getElementById('fab-menu');
-    function set(o) { f.classList.toggle('open', o); m.hidden = !o; b.setAttribute('aria-expanded', o); b.setAttribute('aria-label', o ? 'İletişim seçeneklerini kapat' : 'İletişim seçeneklerini aç'); }
-    b.addEventListener('click', function () { set(!f.classList.contains('open')); });
+    var b = f.querySelector('.fab-btn'), m = document.getElementById('fab-menu'), ctx;
+
+    // Araba çalıştırma sesi (Web Audio ile üretilir, dosya yok): marş + motorun tutması + rölanti
+    function engineStart() {
+      try {
+        var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+        ctx = ctx || new AC(); if (ctx.state === 'suspended') ctx.resume();
+        var t = ctx.currentTime + 0.02;
+        var out = ctx.createGain(); out.gain.value = 0.32;
+        var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1100;
+        lp.connect(out); out.connect(ctx.destination);
+        function osc(type, f) { var o = ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(f, t); return o; }
+
+        // 1) Marş motoru: tırtıklı "vın-vın-vın"
+        var st = osc('sawtooth', 120); st.frequency.linearRampToValueAtTime(165, t + 0.6);
+        var stG = ctx.createGain(); stG.gain.setValueAtTime(0.0001, t);
+        stG.gain.linearRampToValueAtTime(0.32, t + 0.06); stG.gain.setValueAtTime(0.32, t + 0.55); stG.gain.linearRampToValueAtTime(0.0001, t + 0.68);
+        var lfo = osc('square', 11); var lfoG = ctx.createGain(); lfoG.gain.value = 0.18;
+        lfo.connect(lfoG); lfoG.connect(stG.gain); st.connect(stG); stG.connect(lp);
+        st.start(t); lfo.start(t); st.stop(t + 0.7); lfo.stop(t + 0.7);
+
+        // 2) Motor tutar, gaz verir, rölantiye düşer
+        var e0 = t + 0.6, e1 = osc('sawtooth', 28), e2 = osc('square', 14);
+        [e1, e2].forEach(function (o, i) {
+          var k = i ? 0.5 : 1;
+          o.frequency.setValueAtTime(28 * k, e0);
+          o.frequency.exponentialRampToValueAtTime(92 * k, e0 + 0.28);
+          o.frequency.exponentialRampToValueAtTime(40 * k, e0 + 0.95);
+          o.frequency.setValueAtTime(40 * k, e0 + 1.6);
+        });
+        var eG = ctx.createGain(); eG.gain.setValueAtTime(0.0001, e0);
+        eG.gain.linearRampToValueAtTime(0.5, e0 + 0.08); eG.gain.setValueAtTime(0.5, e0 + 0.7);
+        eG.gain.linearRampToValueAtTime(0.28, e0 + 1.0); eG.gain.exponentialRampToValueAtTime(0.0001, e0 + 1.65);
+        var put = osc('sine', 7); put.frequency.exponentialRampToValueAtTime(24, e0 + 0.28); put.frequency.exponentialRampToValueAtTime(10, e0 + 0.95);
+        var putG = ctx.createGain(); putG.gain.value = 0.22; put.connect(putG); putG.connect(eG.gain);
+        e1.connect(eG); e2.connect(eG); eG.connect(lp);
+        [e1, e2, put].forEach(function (o) { o.start(e0); o.stop(e0 + 1.7); });
+
+        // 3) Yanma gürültüsü (doku)
+        var len = Math.floor(ctx.sampleRate * 1.7), buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+        for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+        var n = ctx.createBufferSource(); n.buffer = buf;
+        var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 320; bp.Q.value = 0.8;
+        var nG = ctx.createGain(); nG.gain.setValueAtTime(0.0001, e0); nG.gain.linearRampToValueAtTime(0.12, e0 + 0.1);
+        nG.gain.linearRampToValueAtTime(0.05, e0 + 1.0); nG.gain.exponentialRampToValueAtTime(0.0001, e0 + 1.6);
+        n.connect(bp); bp.connect(nG); nG.connect(lp); n.start(e0); n.stop(e0 + 1.7);
+      } catch (_) {}
+    }
+
+    function set(o) {
+      f.classList.toggle('open', o); m.hidden = !o;
+      b.setAttribute('aria-expanded', o);
+      b.setAttribute('aria-label', o ? 'İletişim seçeneklerini kapat' : 'İletişim seçeneklerini aç');
+    }
+    b.addEventListener('click', function () { var o = !f.classList.contains('open'); set(o); if (o) engineStart(); });
     document.addEventListener('click', function (e) { if (!f.contains(e.target)) set(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); b.focus(); } });
     m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { set(false); }); });
+    set(false);
   })();
 </script>
