@@ -77,6 +77,7 @@ const org = {
           <li class="has-sub"><a href={u('hizmetlerimiz/')} aria-current={inServices ? 'page' : undefined}>Hizmetlerimiz</a>
             <ul class="sub">{services.map((s) => <li><a href={u(s.slug + '/')}>{s.title}</a></li>)}</ul>
           </li>
+          <li><a href={u('referanslar/')} aria-current={path.startsWith(u('referanslar')) ? 'page' : undefined}>Referanslar</a></li>
           <li><a href={u('bilgi-bankasi/')} aria-current={path.startsWith(u('bilgi-bankasi')) ? 'page' : undefined}>Blog</a></li>
           <li><a href={u('iletisim/')} aria-current={is('iletisim/') ? 'page' : undefined}>İletişim</a></li>
         </ul>
@@ -90,6 +91,7 @@ const org = {
           {aboutPages.map((a) => <a class="sub" href={u(a.href)}>{a.name}</a>)}
           <a href={u('hizmetlerimiz/')}>Hizmetlerimiz</a>
           {services.map((s) => <a class="sub" href={u(s.slug + '/')}>{s.title}</a>)}
+          <a href={u('referanslar/')}>Referanslar</a>
           <a href={u('bilgi-bankasi/')}>Blog</a>
           <a href={u('iletisim/')}>İletişim</a>
           <a class="btn" href={PHONE_TEL}>Hemen Ara: {PHONE}</a>
@@ -101,7 +103,7 @@ const org = {
   <footer class="site-footer">
     <div class="wrap">
       <div class="f-about"><Logo variant="footer" /><p>{ABOUT_SHORT}</p></div>
-      <div><h2>MENU</h2><ul><li><a href={u('hakkimizda/')}>Hakkımızda</a></li><li><a href={u('hizmetlerimiz/')}>Hizmetlerimiz</a></li><li><a href={u('iletisim/')}>Referanslarımız</a></li><li><a href={u('iletisim/')}>İletişim</a></li></ul></div>
+      <div><h2>MENU</h2><ul><li><a href={u('hakkimizda/')}>Hakkımızda</a></li><li><a href={u('hizmetlerimiz/')}>Hizmetlerimiz</a></li><li><a href={u('referanslar/')}>Referanslarımız</a></li><li><a href={u('iletisim/')}>İletişim</a></li></ul></div>
       <div><h2>Hizmetlerimiz</h2><ul>{services.map((s) => <li><a href={u(s.slug + '/')}>{s.title}</a></li>)}</ul></div>
       <div class="f-contact">
         <p><Icon name="pin" size={18} /> <span>Adres: {ADDRESS}</span></p>

@@ -183,3 +183,20 @@ export const allImageIds = [
     '6147373', '13831531', '4175028', '6592700', '8353820',
   ]),
 ];
+
+// Referanslar. Logolar CI'da firmanın kendi alan adından (site simgesi) public/ref/<slug>.png olarak indirilir.
+export const sectors = ['Telekomünikasyon', 'Finans ve Sigorta', 'Sağlık ve İlaç', 'Perakende'];
+export const references = [
+  { slug: 'vodafone', name: 'Vodafone Türkiye', domain: 'vodafone.com.tr', url: 'https://www.vodafone.com.tr/', sector: 'Telekomünikasyon',
+    text: 'Küresel Vodafone Grubu’nun Türkiye şirketi; mobil iletişim, sabit internet ve dijital hizmetler alanında faaliyet gösteren önde gelen operatörlerden biri.' },
+  { slug: 'turk-telekom', name: 'Türk Telekom', domain: 'turktelekom.com.tr', url: 'https://www.turktelekom.com.tr/', sector: 'Telekomünikasyon',
+    text: 'Türkiye’nin köklü entegre telekomünikasyon şirketi; sabit hat, mobil, genişbant internet ve TV hizmetlerini tek çatı altında sunuyor.' },
+  { slug: 'ing', name: 'ING Türkiye', domain: 'ing.com.tr', url: 'https://www.ing.com.tr/', sector: 'Finans ve Sigorta',
+    text: 'Hollanda merkezli ING Grubu’nun Türkiye’deki bankası; bireysel, KOBİ ve kurumsal müşterilere bankacılık hizmetleri veriyor.' },
+  { slug: 'eureko-sigorta', name: 'Eureko Sigorta', domain: 'eurekosigorta.com.tr', url: 'https://www.eurekosigorta.com.tr/', sector: 'Finans ve Sigorta',
+    text: '1989’da Garanti Sigorta olarak kurulan, 2007’den bu yana Eureko Sigorta adıyla hizmet veren ve Achmea grubunun üyesi olan sigorta şirketi.' },
+  { slug: 'pfizer', name: 'Pfizer Türkiye', domain: 'pfizer.com.tr', url: 'https://www.pfizer.com.tr/', sector: 'Sağlık ve İlaç',
+    text: 'Dünyanın önde gelen biyofarmasötik şirketlerinden Pfizer’in Türkiye organizasyonu; ilaç ve aşı alanında faaliyet gösteriyor.' },
+  { slug: 'koton', name: 'Koton', domain: 'koton.com', url: 'https://www.koton.com/', sector: 'Perakende',
+    text: 'İstanbul merkezli hazır giyim markası; Türkiye ve yurt dışındaki mağazaları ile çevrim içi satış kanallarında moda ürünleri sunuyor.' },
+];

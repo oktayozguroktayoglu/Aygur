@@ -1,7 +1,7 @@
 // İlk yayında çalışır: eksik görselleri (Pexels), logoyu ve eski sitenin tema stillerini indirir.
 // Dosyalar repoya kaydedilir; sonraki derlemeler internete ihtiyaç duymaz.
 import { mkdir, writeFile, access, readdir, readFile } from 'node:fs/promises';
-import { allImageIds } from '../src/data/site.js';
+import { allImageIds, references } from '../src/data/site.js';
 
 const OLD = 'https://www.aygur.com.tr';
 const exists = (p) => access(p).then(() => true, () => false);
@@ -27,6 +27,12 @@ for (const f of (await readdir('src/content/blog')).filter((f) => f.endsWith('.m
 }
 for (const id of new Set([...allImageIds, ...blogIds])) {
   await save(`https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1600`, `public/img/${id}.jpg`);
+}
+
+// Referans firma logoları (firmanın kendi site simgesi)
+await mkdir('public/ref', { recursive: true });
+for (const r of references) {
+  await save(`https://www.google.com/s2/favicons?domain=${r.domain}&sz=256`, `public/ref/${r.slug}.png`);
 }
 
 // Logo ve favicon (eski siteden)

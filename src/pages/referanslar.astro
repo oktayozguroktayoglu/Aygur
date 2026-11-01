@@ -1,0 +1,76 @@
+---
+import { existsSync } from 'node:fs';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Stats from '../components/Stats.astro';
+import InfoCard from '../components/InfoCard.astro';
+import Icon from '../components/Icon.astro';
+import { references, sectors } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const refs = references.map((r) => ({ ...r, logo: existsSync(`public/ref/${r.slug}.png`) ? `${base}ref/${r.slug}.png` : null }));
+const initials = (n) => n.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR');
+const count = (s) => references.filter((r) => r.sector === s).length;
+---
+<Base title="Referanslarımız | Aygur Turizm" description="Aygur Turizm referansları: Vodafone, Türk Telekom, ING, Eureko Sigorta, Pfizer ve Koton gibi telekomünikasyon, finans, sağlık ve perakende sektörlerinden kurumlar."
+  jsonLd={{ '@context': 'https://schema.org', '@type': 'ItemList', name: 'Aygur Turizm Referansları', itemListElement: references.map((r, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Organization', name: r.name, url: r.url } })) }}>
+  <PageHero title="REFERANSLARIMIZ" crumbs={[{ name: 'Referanslarımız' }]} />
+
+  <section class="section">
+    <div class="wrap ref-intro">
+      <div>
+        <p class="kicker">BİZE GÜVENEN KURUMLAR</p>
+        <h2>Türkiye’nin önde gelen kurumlarının ulaşım ortağı</h2>
+      </div>
+      <p class="lead">30 yılı aşkın süredir telekomünikasyondan finansa, sağlıktan perakendeye farklı sektörlerdeki kurumların çalışanlarını her gün güvenle taşıyoruz. Aşağıda bize güvenen kurumlardan bazılarını bulabilirsiniz.</p>
+    </div>
+
+    <div class="wrap">
+      <div class="ref-filter" role="toolbar" aria-label="Sektöre göre filtrele">
+        <button type="button" class="chip" aria-pressed="true" data-filter="*">Tümü <span>{references.length}</span></button>
+        {sectors.map((s) => <button type="button" class="chip" aria-pressed="false" data-filter={s}>{s} <span>{count(s)}</span></button>)}
+      </div>
+
+      <ul class="ref-grid">
+        {refs.map((r) => (
+          <li class="ref-card" data-sector={r.sector}>
+            <a class="ref-logo" href={r.url} target="_blank" rel="noopener" aria-label={`${r.name} web sitesi (yeni sekmede açılır)`}>
+              {r.logo ? <img src={r.logo} alt={`${r.name} logosu`} width="96" height="96" loading="lazy" /> : <span class="ref-initials" aria-hidden="true">{initials(r.name)}</span>}
+            </a>
+            <div class="ref-body">
+              <span class="ref-sector">{r.sector}</span>
+              <h3>{r.name}</h3>
+              <p>{r.text}</p>
+              <a class="ref-link" href={r.url} target="_blank" rel="noopener">{r.domain} <span aria-hidden="true">↗</span></a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section ref-sectors">
+    <div class="wrap">
+      <p class="kicker center">HİZMET VERDİĞİMİZ SEKTÖRLER</p>
+      <h2 class="center">Her sektörün ritmine uygun ulaşım</h2>
+      <div class="ref-sector-grid">
+        <div><Icon name="route" size={30} /><h3>Telekomünikasyon</h3><p>Çağrı merkezi ve genel müdürlük vardiyalarına uygun, çok noktalı personel servisleri.</p></div>
+        <div><Icon name="award" size={30} /><h3>Finans ve Sigorta</h3><p>Dakiklik ve gizlilik gerektiren kurumsal ulaşım ve misafir transferleri.</p></div>
+        <div><Icon name="passenger" size={30} /><h3>Sağlık ve İlaç</h3><p>Kesintisiz operasyon için yedek araç güvenceli, planlı taşımacılık.</p></div>
+        <div><Icon name="pin" size={30} /><h3>Perakende</h3><p>Mağaza, depo ve ofis lokasyonlarını birbirine bağlayan esnek güzergahlar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <Stats />
+  <InfoCard />
+</Base>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.ref-filter .chip');
+  const cards = document.querySelectorAll<HTMLElement>('.ref-card');
+  chips.forEach((c) => c.addEventListener('click', () => {
+    const f = c.dataset.filter;
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+    cards.forEach((card) => { card.hidden = f !== '*' && card.dataset.sector !== f; });
+  }));
+</script>
