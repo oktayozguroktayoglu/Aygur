@@ -322,3 +322,18 @@ ul{padding-left:20px}
 .ref-sector-grid p{color:var(--muted);font-size:15px;margin:0}
 @media (max-width:900px){.ref-intro{grid-template-columns:1fr;gap:12px}.ref-sector-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.ref-sector-grid{grid-template-columns:1fr}.ref-grid{grid-template-columns:1fr}}
+
+/* Yana açılma efekti: her bölüm 3 parçaya bölünür, parçalar sırayla yana kayar (JS ile eklenir) */
+@media (prefers-reduced-motion:no-preference){
+  main{overflow-x:clip}
+  .reveal-page{position:relative}
+  .reveal-page>:not(.reveal-strip){opacity:.35;transform:translateX(36px);transition:transform 1.2s cubic-bezier(.22,.61,.36,1) .35s,opacity 1.2s ease .35s}
+  .reveal-page.is-open>:not(.reveal-strip){opacity:1;transform:none}
+  .reveal-strip{position:absolute;top:0;bottom:0;width:calc(100% / 3 + 1px);z-index:3;pointer-events:none;transition:transform 1.1s cubic-bezier(.65,0,.35,1)}
+  .reveal-strip-1{left:0}
+  .reveal-strip-2{left:calc(100% / 3)}
+  .reveal-strip-3{left:calc(200% / 3)}
+  .reveal-page.is-open .reveal-strip-1{transform:translateX(-101%)}
+  .reveal-page.is-open .reveal-strip-2{transform:translateX(101%);transition-delay:.12s}
+  .reveal-page.is-open .reveal-strip-3{transform:translateX(-101%);transition-delay:.24s}
+}

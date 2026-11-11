@@ -117,5 +117,33 @@ const org = {
   <script is:inline>
     (function(){var m=document.querySelector('.mobile-menu');if(!m)return;document.addEventListener('click',function(e){if(m.open&&!m.contains(e.target))m.open=false;});m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.open=false;});});document.addEventListener('keydown',function(e){if(e.key==='Escape')m.open=false;});})();
   </script>
+  <script is:inline>
+    (function(){
+      if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      var items=document.querySelectorAll('main > section:not(.hero)');
+      if(!items.length)return;
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(!en.isIntersecting)return;
+          var el=en.target;
+          el.classList.add('is-open');
+          io.unobserve(el);
+          setTimeout(function(){el.querySelectorAll('.reveal-strip').forEach(function(s){s.remove();});},1600);
+        });
+      },{threshold:0.15,rootMargin:'0px 0px -8% 0px'});
+      items.forEach(function(el){
+        var bg=getComputedStyle(el).backgroundColor;
+        if(!bg||bg==='rgba(0, 0, 0, 0)'||bg==='transparent')bg='#fff';
+        el.classList.add('reveal-page');
+        for(var i=1;i<=3;i++){
+          var s=document.createElement('span');
+          s.className='reveal-strip reveal-strip-'+i;
+          s.style.background=bg;
+          el.appendChild(s);
+        }
+        io.observe(el);
+      });
+    })();
+  </script>
 </body>
 </html>
